@@ -42,7 +42,7 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
-    [_BASE] = LAYOUT( 
+    [_BASE] = LAYOUT(
 	KC_ESC,	   KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                     KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,     KC_LBRC,
 	KC_TAB,    KC_A,   KC_S,   KC_D,   KC_F,   KC_G,                     KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,  KC_QUOT,
 	KC_LSFT,   KC_Z,   KC_X,   KC_C,   KC_V,    KC_B,  KC_DEL,   KC_LGUI,KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,  KC_SLSH,
@@ -75,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	XXXXXXX,   XXXXXXX,RGB_VAD,RGB_SAD,RGB_HUD,RGB_RMOD,KC_DEL, KC_LGUI, SCRL_IN,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, XXXXXXX,
     KC_LGUI,                   KC_LEFT,KC_RIGHT,KC_SPC,KC_LCTL,  KC_BSPC,KC_ENT, KC_DOWN, KC_UP,                      KC_ENT,
      KC_A, KC_B,  KC_D, KC_E, KC_F,               KC_G, KC_H, KC_I, KC_J, KC_K , KC_L, KC_M
-    )    
+    )
 
 
 };
@@ -178,10 +178,10 @@ void cocot_set_scroll_mode(bool mode) {
 cocot_config_t cocot_config;
 uint16_t cpi_array[] = COCOT_CPI_OPTIONS;
 uint16_t scrl_div_array[] = COCOT_SCROLL_DIVIDERS;
-uint16_t angle_array[] = COCOT_ROTATION_ANGLE;
+int16_t angle_array[] = COCOT_ROTATION_ANGLE;
 #define CPI_OPTION_SIZE (sizeof(cpi_array) / sizeof(uint16_t))
 #define SCRL_DIV_SIZE (sizeof(scrl_div_array) / sizeof(uint16_t))
-#define ANGLE_SIZE (sizeof(angle_array) / sizeof(uint16_t))
+#define ANGLE_SIZE (sizeof(angle_array) / sizeof(int16_t))
 
 
 void eeconfig_init_user(void) {

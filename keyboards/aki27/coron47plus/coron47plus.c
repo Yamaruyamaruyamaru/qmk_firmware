@@ -64,10 +64,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 cocot_config_t cocot_config;
 uint16_t cpi_array[] = COCOT_CPI_OPTIONS;
 uint16_t scrl_div_array[] = COCOT_SCROLL_DIVIDERS;
-uint16_t angle_array[] = COCOT_ROTATION_ANGLE;
+int16_t angle_array[] = COCOT_ROTATION_ANGLE;
 #define CPI_OPTION_SIZE (sizeof(cpi_array) / sizeof(uint16_t))
 #define SCRL_DIV_SIZE (sizeof(scrl_div_array) / sizeof(uint16_t))
-#define ANGLE_SIZE (sizeof(angle_array) / sizeof(uint16_t))
+#define ANGLE_SIZE (sizeof(angle_array) / sizeof(int16_t))
 
 
 // Trackball State
@@ -141,7 +141,7 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     // xprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
-    
+
     if (!process_record_user(keycode, record)) return false;
 
     switch (keycode) {
@@ -167,7 +167,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
         cocot_config.scrl_div = (cocot_config.scrl_div + 1) % SCRL_DIV_SIZE;
         eeconfig_update_kb(cocot_config.raw);
     }
-    
+
     if (keycode == ROT_R15 && record->event.pressed) {
         cocot_config.rotation_angle = (cocot_config.rotation_angle + 1) % ANGLE_SIZE;
         eeconfig_update_kb(cocot_config.raw);
@@ -252,7 +252,7 @@ void oled_write_layer_state(void) {
     int cpi = cpi_array[cocot_config.cpi_idx];
     int scroll_div = scrl_div_array[cocot_config.scrl_div];
     int angle = angle_array[cocot_config.rotation_angle];
-    
+
     char buf1[5];
     char buf2[3];
     char buf3[4];

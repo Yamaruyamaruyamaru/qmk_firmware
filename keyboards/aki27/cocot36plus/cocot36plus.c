@@ -64,10 +64,10 @@ extern const pointing_device_driver_t pointing_device_driver;
 cocot_config_t cocot_config;
 uint16_t cpi_array[] = COCOT_CPI_OPTIONS;
 uint16_t scrl_div_array[] = COCOT_SCROLL_DIVIDERS;
-uint16_t angle_array[] = COCOT_ROTATION_ANGLE;
+int16_t angle_array[] = COCOT_ROTATION_ANGLE;
 #define CPI_OPTION_SIZE (sizeof(cpi_array) / sizeof(uint16_t))
 #define SCRL_DIV_SIZE (sizeof(scrl_div_array) / sizeof(uint16_t))
-#define ANGLE_SIZE (sizeof(angle_array) / sizeof(uint16_t))
+#define ANGLE_SIZE (sizeof(angle_array) / sizeof(int16_t))
 
 
 // Scroll Accumulation
@@ -137,7 +137,7 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     // xprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
-    
+
     if (!process_record_user(keycode, record)) return false;
 
     switch (keycode) {
@@ -163,7 +163,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
         cocot_config.scrl_div = (cocot_config.scrl_div + 1) % SCRL_DIV_SIZE;
         eeconfig_update_kb(cocot_config.raw);
     }
-    
+
     if (keycode == ROT_R15 && record->event.pressed) {
         cocot_config.rotation_angle = (cocot_config.rotation_angle + 1) % ANGLE_SIZE;
         eeconfig_update_kb(cocot_config.raw);
@@ -311,17 +311,17 @@ void oled_write_layer_state(void) {
     snprintf(buf1, 6, "%4d", cpi);
     snprintf(buf2, 6, "%1d", scroll_div);
     snprintf(buf3, 8, "%2d", abs(angle));
-    
+
     oled_write_P    (get_u8_str(get_highest_layer(layer_state), ' '), false);
-    
+
     oled_write_P(PSTR("/"), false);
-    
+
     if (cocot_get_scroll_mode()){
         oled_write_P(PSTR("S"), false);
     } else{
         oled_write_P(PSTR("C"), false);
     }
-    
+
     /*
     if (state == SCROLLING) {
         oled_write_P(PSTR("S"), false);
@@ -329,7 +329,7 @@ void oled_write_layer_state(void) {
         oled_write_P(PSTR("C"), false);
     }
     */
-    
+
     oled_write_P(PSTR("/"), false);
     oled_write(buf1, false);
     oled_write_P(PSTR("/"), false);
