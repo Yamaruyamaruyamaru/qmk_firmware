@@ -112,7 +112,7 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
         }
 
         // Accumulate scroll values
-        if (cocot_config.scrl_inv) {
+        if (cocot_config.scrl_inv > 0) {
             h_acm += smoothed_x;
             v_acm -= smoothed_y;
         } else {
@@ -160,7 +160,7 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     // xprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
-    
+
     if (!process_record_user(keycode, record)) {
         return false;
     }
@@ -254,7 +254,7 @@ void oled_write_layer_state(void) {
     int cpi = cpi_array[cocot_config.cpi_idx];
     int scroll_div = scrl_div_array[cocot_config.scrl_div];
     int angle = angle_array[cocot_config.rotation_angle];
-    
+
     char buf1[6];
     char buf2[6];
     char buf3[6];
@@ -298,7 +298,7 @@ void oled_write_layer_state(void) {
     oled_write(buf2, false);
     oled_write_P(PSTR("   "), false);
     oled_write(buf3, false);
-    
+
 }
 
 #endif
