@@ -31,4 +31,23 @@
     "clangd.arguments": [
         "--header-insertion=never"
     ]
+
+    {
+    "files.exclude": {
+    "**/__pycache__": true,
+    "**/.venv": true,
+    "**/node_modules": true
+    },
+    "search.exclude": {
+    "**/__pycache__": true,
+    "**/.venv": true,
+    "**/node_modules": true
+    },
+    "python.analysis.exclude": [
+    "**/__pycache__",
+    "**/.venv",
+    "**/node_modules"
+    ]
+    }
+
 }
